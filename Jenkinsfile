@@ -28,8 +28,7 @@ pipeline {
         stage("deploye image"){
             steps{
                 echo "deploye the image"
-                sh "docker run -p 8000:8000 -d ikram97/my-note-app:latest"
-#                sh "docker-compose down && docker-compose up -d"
+                sh "docker-compose down && docker-compose up -d"
             
             }
             
