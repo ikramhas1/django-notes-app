@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: note-deployment
+  labels:
+    app: note-app
+spec:
+  replicas: 2
+  strategy:
+   rollingUpdate:
+     maxUnavailable: 50%
+     maxSurge: 100%
+   type: RollingUpdate
+  selector:
+    matchLabels:
+      app: note-app
+  template:
+    metadata:
+      labels:
+        app: note-app
+    spec:
+      containers:
+      - name: movie-app
+        image: ikram97/my-note-app:latest
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+   name: myservice
+spec:
+   type: NodePort
+   selector:
+      app: note-app
+   ports:
+   - port: 8000
+     targetPort: 8000
+     nodePort: 30009
