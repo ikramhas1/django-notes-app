@@ -28,7 +28,18 @@ pipeline {
         stage("deploye image"){
             steps{
                 echo "deploye the image"
-                sh "docker-compose down && docker-compose up -d"
+                 sh "docker-compose down && docker-compose up -d"
+        
+            
+            }
+            
+        }
+        stage("deploye k8s"){
+            steps{
+                script{
+        
+                    kubernetesDeploy (configs: 'deploymentsvc.yaml', kubeconfigId: 'kube')
+                }
             
             }
             
